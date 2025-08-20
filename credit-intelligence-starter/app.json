@@ -1,0 +1,42 @@
+{
+  "name": "Credit Intelligence Platform",
+  "description": "Real-Time Explainable Credit Intelligence Platform",
+  "image": "heroku/python",
+  "stack": "heroku-22",
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:mini"
+    },
+    {
+      "plan": "heroku-redis:mini"
+    }
+  ],
+  "env": {
+    "ALPHA_VANTAGE_API_KEY": {
+      "description": "Alpha Vantage API key for financial data",
+      "required": false
+    },
+    "NEWS_API_KEY": {
+      "description": "News API key for sentiment analysis",
+      "required": false
+    },
+    "FRED_API_KEY": {
+      "description": "FRED API key for economic data",
+      "required": false
+    }
+  },
+  "scripts": {
+    "postdeploy": "python -c \"from database.connection import init_db; init_db()\""
+  }
+}
